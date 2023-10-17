@@ -1,0 +1,15 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY ./package.json ./
+
+RUN npm install
+
+COPY ./ ./
+
+CMD ["npm", "run", "dev"]
+
+
+# CMD ["npm", "run", "dev"] --> start강 아닌 dev인 이유는 코드가 변경될때 바로 반영을 시켜주게 하는 nodemone이라는 모듈을 사용하고 싶기 때문에
+                                    # --> package.json에 script에  "dev": "nodemon server.js"
