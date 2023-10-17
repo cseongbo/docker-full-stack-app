@@ -23,4 +23,15 @@ after_success:
   - docker push chltjdqh217/docker-backend
   - docker push chltjdqh217/docker-nginx
 
-  
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-notheast-2"
+  app: "docker-fullstack-app"
+  env: "Docker-fullstack-app-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-815860262428"
+  bucket_path: "docker-fullstack-app"
+  on:
+    branch: main
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
