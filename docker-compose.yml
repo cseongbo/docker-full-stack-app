@@ -1,7 +1,9 @@
 version: "3"
 services: 
   frontend:
-    image: chltjdqh217/docker-front
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./frontend
     volumes:
       - /app/node_modules
       - ./frontend:/app
@@ -9,12 +11,16 @@ services:
 
   nginx:
     restart: always
-    image: chltjdqh217/docker-nginx
+    build: 
+      dockerfile: Dockerfile
+      context: ./nginx
     ports:
       - "3000:80"
       
   backend:
-    image: chltjdqh217/docker-backend
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./backend
     container_name: app_backend
     volumes:
       - /app/node_modules
