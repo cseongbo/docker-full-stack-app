@@ -1,36 +1,36 @@
-version: "2.4"
+version: "3"
 services: 
   frontend:
-    image: chltjdqh217/docker-frontend
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./frontend
     volumes:
       - /app/node_modules
       - ./frontend:/app
     stdin_open: true
-    mem_limit: 128m
 
   nginx:
     restart: always
-    image: chltjdqh217/docker-nginx
+    build: 
+      dockerfile: Dockerfile
+      context: ./nginx
     ports:
-      - "80:80"
-    mem_limit: 128m
-    links:
-      - frontend
-      - backend
+      - "3000:80"
       
   backend:
-    image: chltjdqh217/docker-backend
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./backend
     container_name: app_backend
     volumes:
       - /app/node_modules
       - ./backend:/app
     environment:
-      - MYSQL_HOST: docker-fullstack-mysql.chd1wchsin2p.ap-northeast-2.rds.amazonaws.com
+      - MYSQL_HOST: mysql
       - MYSQL_USER: root
       - MYSQL_ROOT_PASSWORD: choi1234
       - MYSQL_DATABASE: myapp
       - MYSQL_PORT: 3306
-    mem_limist: 128m 
   # mysql: 
   #   build: ./mysql
   #   restart: unless-stopped
