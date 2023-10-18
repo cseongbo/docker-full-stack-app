@@ -1,5 +1,5 @@
 # 요청이 올때 Nginx가 제공을 해줄 Build파일들을 생성하는 단계
-FROM node:10 as builder
+FROM node:alpine as builder
 WORKDIR /app
 COPY ./package.json ./
 RUN npm install
